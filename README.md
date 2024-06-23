@@ -1,4 +1,12 @@
 npx create-next-app@latest ./
+npx shadcn-ui@latest init
+npm install next-themes
+npm i react-icons
+npm install @supabase/ssr @supabase/supabase-js
+npm i zustand
+npm i @radix-ui/react-icons
+npm install react-markdown
+npm install rehype-highlight
 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
