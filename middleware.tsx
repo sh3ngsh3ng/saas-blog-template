@@ -55,7 +55,7 @@ export async function middleware(request: NextRequest) {
     )
 
     const { data } = await supabase.auth.getUser()
-    console.log("data: ", data)
+    // console.log("data: ", data)
     console.log("url: ", request.url)
     if (data.user) {
         if (data.user.user_metadata.role !== "admin") {

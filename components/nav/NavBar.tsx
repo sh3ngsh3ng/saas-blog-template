@@ -14,7 +14,7 @@ export default function NavBar() {
                 <div className="h-1 w-0 group-hover:w-full transition-all bg-green-500">
                 </div>
             </div>
-            {user ? <Profile /> : <LoginForm />}
+            {user?.id ? <Profile /> : <LoginForm />}
         </nav>
     )
 }

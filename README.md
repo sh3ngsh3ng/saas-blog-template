@@ -9,7 +9,7 @@ npm install react-markdown
 npm install rehype-highlight
 npm install supabase --save-dev
 npx supabase gen types typescript --project-id "<project-id>" --schema public > lib/types/supabase.ts
-
+npm i stripe @stripe/stripe-js
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 

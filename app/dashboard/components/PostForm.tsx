@@ -25,12 +25,15 @@ import { Textarea } from "@/components/ui/textarea"
 import MarkdownPreview from '@/components/markdown/MarkdownPreview'
 import { PostFormSchema, PostFormSchemaType } from '../schema'
 import { z } from "zod"
+import { IPostDetail } from '@/lib/types'
 
 
 export default function PostForm({
-    onHandleSubmit
+    onHandleSubmit,
+    post
 }: {
-    onHandleSubmit: (data: PostFormSchemaType) => void
+    onHandleSubmit: (data: PostFormSchemaType) => void,
+    post?: IPostDetail
 }) {
 
     const [isPending, startTransition] = useTransition()
@@ -40,11 +43,11 @@ export default function PostForm({
         mode: "all",
         resolver: zodResolver(PostFormSchema),
         defaultValues: {
-            title: "",
-            content: "",
-            image_url: "",
-            is_premium: false,
-            is_published: true
+            title: post?.title || "",
+            content: post?.post_content?.content || "",
+            image_url: post?.image_url || "",
+            is_premium: post?.is_premium || false,
+            is_published: post?.is_published || true
         },
     })
 

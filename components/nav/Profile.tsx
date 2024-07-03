@@ -10,6 +10,7 @@ import Link from 'next/link'
 import { Button } from '../ui/button'
 import { DashboardIcon, LockOpen1Icon } from '@radix-ui/react-icons'
 import { createBrowserClient } from '@supabase/ssr'
+import ManageBilling from '../stripe/ManageBilling'
 
 
 export default function Profile() {
@@ -23,16 +24,18 @@ export default function Profile() {
 
     const handleLogout = async () => {
         await supabase.auth.signOut();
-        setUser(undefined)
+        setUser(null)
     }
 
-    const isAdmin = user?.user_metadata?.role == "admin"
+    const isAdmin = user?.role == "admin"
+    const isSub = user?.subscription_status
+
     return (
         <Popover>
             <PopoverTrigger>
                 <Image
-                    src={user?.user_metadata.avatar_url}
-                    alt={user?.user_metadata.username}
+                    src={user?.image_url || ""}
+                    alt={user?.display_name || ""}
                     width={50}
                     height={50}
                     className="rounded-full ring-2 ring-green-500"
@@ -40,8 +43,8 @@ export default function Profile() {
             </PopoverTrigger>
             <PopoverContent className="p-2 space-y-3 divide-y">
                 <div className="px-4 text-sm">
-                    <p className="text-gray-500">{user?.user_metadata.user_name}</p>
-                    <p className="text-gray-500">{user?.user_metadata.email}</p>
+                    <p className="text-gray-500">{user?.display_name}</p>
+                    <p className="text-gray-500">{user?.email}</p>
                 </div>
                 {isAdmin &&
                     <Link href="/dashboard" className="block">
@@ -51,12 +54,14 @@ export default function Profile() {
                         </Button>
                     </Link>
                 }
-                <Link href="/logout" className="block">
-                    <Button variant="ghost" className="w-full flex items-center justify-between" onClick={handleLogout}>
-                        Logout
-                        <LockOpen1Icon />
-                    </Button>
-                </Link>
+                {/* <Link href="/logout" className="block"> */}
+
+                {isSub && <ManageBilling />}
+                <Button variant="ghost" className="w-full flex items-center justify-between" onClick={handleLogout}>
+                    Logout
+                    <LockOpen1Icon />
+                </Button>
+                {/* </Link> */}
             </PopoverContent>
         </Popover>
 
